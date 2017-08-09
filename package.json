@@ -1,0 +1,20 @@
+{
+  "name": "Vue-resumer",
+  "version": "0.0.1",
+  "description": "Vue-resumer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YJ233/Vue-resumer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YJ233/Vue-resumer/issues"
+  },
+  "homepage": "https://github.com/YJ233/Vue-resumer#readme"
+}
