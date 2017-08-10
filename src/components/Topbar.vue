@@ -1,5 +1,12 @@
 <template>
-  <div id="topbar">我是topbar</div>
+  <div id="topbar">
+      <div class="logo">
+          VueResumer
+      </div>
+      <div class="actions">
+          
+      </div>
+  </div>
 </template>
 
 <style>
