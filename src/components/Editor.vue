@@ -2,27 +2,27 @@
     <div id="editor">
         <nav>
             <ol>
-                <li class="active">
+                <li :class="{active: activeTabIndex===0}" @click="activeTabIndex=0">
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-sfz"></use>
                     </svg>
                 </li>
-                <li>
+                <li :class="{active: activeTabIndex===1}" @click="activeTabIndex=1">
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-book"></use>
                     </svg>
                 </li>
-                <li>
+                <li :class="{active: activeTabIndex===2}" @click="activeTabIndex=2">
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-project"></use>
                     </svg>
                 </li>
-                <li>
+                <li :class="{active: activeTabIndex===3}" @click="activeTabIndex=3">
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-work"></use>
                     </svg>
                 </li>
-                <li>
+                <li :class="{active: activeTabIndex===4}" @click="activeTabIndex=4">
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-phone"></use>
                     </svg>
@@ -30,14 +30,25 @@
             </ol>
         </nav>
         <ol class="content">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li :class="{active: activeTabIndex===0}">0</li>
+            <li :class="{active: activeTabIndex===1}">1</li>
+            <li :class="{active: activeTabIndex===2}">2</li>
+            <li :class="{active: activeTabIndex===3}">3</li>
+            <li :class="{active: activeTabIndex===4}">4</li>
         </ol>
     </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            activeTabIndex: 0
+        }
+    }
+}
+</script>
+
 
 <style lang="scss">
 #editor {
@@ -49,20 +60,25 @@
         text-align: center;
 
         >ol>li {
-            border: 1px solid red;
-            padding: 8px 0;
+            padding: 16px 0;
             text-align: center;
             >.icon {
                 width: 2.5em;
                 height: 2.5em;
                 fill: white;
             }
-            &.active{
+            &.active {
                 background: white;
-                > .icon{
+                >.icon {
                     fill: #000;
                 }
             }
+        }
+    }
+    >.content>li {
+        display: none;
+        &.active {
+            display: block;
         }
     }
 }
