@@ -29,25 +29,35 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  
-  .topbar{
-    background: red;
+
+  .topbar {
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
   }
-  main{
-    background: green;
+
+  main {
     display: flex;
     flex: 1;
-    .editor{
-      width: 25em;
+    background: #ddd;
+    > .editor {
+      width: 40em;
+      margin: 16px;
+      margin-right: 8px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
     }
-    .preview{
+    > .preview {
       flex: 1;
+      margin: 16px;
+      margin-left: 8px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
     }
   }
-
-
-
-
 }
-
 </style>
