@@ -47,7 +47,7 @@ export default {
       background: white;
       border-radius: 8px;
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
+      overflow: auto;
     }
     > .preview {
       flex: 1;
