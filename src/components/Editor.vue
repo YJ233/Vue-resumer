@@ -14,13 +14,13 @@
                 <ProfileEditor :profile="profile" />
             </li>
             <li :class="{active: activeTabIndex===2}">
-                <h2>学习经历</h2>
+                <StudyHistoryEditor :items="studyHistory" />
             </li>
             <li :class="{active: activeTabIndex===3}">
                 <h2>项目经历</h2>
             </li>
             <li :class="{active: activeTabIndex===4}">
-                <WorkHistoryEditor :workHistory="workHistory" />
+                <WorkHistoryEditor :items="workHistory" />
             </li>
             <li :class="{active: activeTabIndex===5}">
                 <h2>联系方式</h2>
@@ -31,11 +31,12 @@
 
 <script>
 import ProfileEditor from './ProfileEditor'
+import StudyHistoryEditor from './StudyHistoryEditor'
 import WorkHistoryEditor from './WorkHistoryEditor'
 
 export default {
-    components:{
-        ProfileEditor,WorkHistoryEditor
+    components: {
+        ProfileEditor, StudyHistoryEditor, WorkHistoryEditor
     },
     data() {
         return {
@@ -50,13 +51,16 @@ export default {
             },
             workHistory: [
                 { company: '', content: '' }
+            ],
+            studyHistory: [
+                { school: '', duration: '', degree: '' }
             ]
 
 
         }
     },
     methods: {
-       
+
     }
 
 }
@@ -98,19 +102,19 @@ export default {
             &.active {
                 display: block;
             }
-            >h2 {
+            h2 {
                 padding-bottom: 24px;
             }
-            .work{
+            .container {
                 position: relative;
-                border-bottom: 1px solid #ccc;
                 margin-bottom: 8px;
-                >h3{
+                >h3 {
                     font-weight: normal;
                 }
-                .el-icon-circle-cross{
+                .el-icon-circle-cross {
                     position: absolute;
-                    right: 0;top:0;
+                    right: 0;
+                    top: 0;
                 }
             }
         }
