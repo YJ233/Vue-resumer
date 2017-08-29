@@ -5,7 +5,7 @@
             <div class="container" v-for="(item,index) in items" :key="index">
                 <h3>经历{{index+1}}</h3>
                 <el-form-item v-for="key in keys" :label="labels[key]||key" :key="key">
-                    <el-input v-model="item.company"></el-input>
+                    <el-input v-model="item[key]"></el-input>
                 </el-form-item>
                 <hr>
                 <i class="el-icon-circle-cross" @click="removeItem(index)"></i>

@@ -2,7 +2,7 @@
   <div id="app">
     <Topbar class="topbar" />
     <main>
-      <Editor class="editor" />
+      <Editor class="editor" :resume="resume"/>
       <Preview class="preview" />
     </main>
   </div>
@@ -14,7 +14,17 @@ import Editor from './components/Editor'
 import Preview from './components/Preview'
 
 export default {
-  name: 'app',
+  data() {
+    return {
+      resume: {
+        profile: {name: '', brith: '', city: ''},
+        studyHistory: [{ school: '', degree: '', duration: '' }],
+        projects: [{ name: '', content: '' }],
+        workHistory: [{ company: '', content: '' }],
+        contacts: {qq: '', wechat: '', email: '', phone: ''}
+      }
+    }
+  },
   components: {
     Topbar, Editor, Preview
   }
@@ -40,7 +50,7 @@ export default {
     display: flex;
     flex: 1;
     background: #ddd;
-    > .editor {
+    >.editor {
       width: 40em;
       margin: 16px;
       margin-right: 8px;
@@ -49,7 +59,7 @@ export default {
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
       overflow: auto;
     }
-    > .preview {
+    >.preview {
       flex: 1;
       margin: 16px;
       margin-left: 8px;

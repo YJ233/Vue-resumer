@@ -11,31 +11,31 @@
         </nav>
         <ol class="content">
             <li :class="{active: activeTabIndex===1}">
-                <ProfileEditor :profile="profile" />
+                <ProfileEditor :profile="resume.profile" />
             </li>
             <li :class="{active: activeTabIndex===2}">
-                <CommonEditor title="学习经历" :items="studyHistory" :labels="{ school: '学校', degree: '学历', duration: '时间' }" />
+                <CommonEditor title="学习经历" :items="resume.studyHistory" :labels="{ school: '学校', degree: '学历', duration: '时间' }" />
             </li>
             <li :class="{active: activeTabIndex===3}">
-                <CommonEditor title="项目经历" :items="projects" :labels="{name:'名称',content:'项目描述'}" />
+                <CommonEditor title="项目经历" :items="resume.projects" :labels="{name:'名称',content:'项目描述'}" />
             </li>
             <li :class="{active: activeTabIndex===4}">
-                <CommonEditor title="工作经历" :items="workHistory" :labels="{company:'工作单位',content:'工作内容'}" />
+                <CommonEditor title="工作经历" :items="resume.workHistory" :labels="{company:'工作单位',content:'工作内容'}" />
             </li>
             <li :class="{active: activeTabIndex===5}">
                 <h2>联系方式</h2>
-                <el-form :label-position="labelPosition" label-width="80px" :model="contacts">
+                <el-form :label-position="labelPosition" label-width="80px" :model="resume.contacts">
                     <el-form-item label="QQ">
-                        <el-input v-model="contacts.qq"></el-input>
+                        <el-input v-model="resume.contacts.qq"></el-input>
                     </el-form-item>
                     <el-form-item label="微信">
-                        <el-input v-model="contacts.wechat"></el-input>
+                        <el-input v-model="resume.contacts.wechat"></el-input>
                     </el-form-item>
                     <el-form-item label="E-mail">
-                        <el-input v-model="contacts.email"></el-input>
+                        <el-input v-model="resume.contacts.email"></el-input>
                     </el-form-item>
                     <el-form-item label="手机">
-                        <el-input v-model="contacts.phone"></el-input>
+                        <el-input v-model="resume.contacts.phone"></el-input>
                     </el-form-item>
                 </el-form>
             </li>
@@ -48,6 +48,7 @@ import ProfileEditor from './ProfileEditor'
 import CommonEditor from './CommonEditor'
 
 export default {
+    props: ['resume'],
     components: {
         ProfileEditor, CommonEditor
     },
@@ -56,24 +57,7 @@ export default {
             activeTabIndex: 1,
             icon: ["sfz", "book", "project", "work", "phone"],
             title: ["个人信息", "学历", "项目", "工作经历", "联系方式"],
-            labelPosition: 'top',
-            profile: {
-                name: '', brith: '', city: ''
-            },
-            workHistory: [
-                { company: '', content: '' }
-            ],
-            studyHistory: [
-                { school: '', degree: '', duration: '' }
-            ],
-            projects: [
-                { name: '', content: '' }
-            ],
-            contacts: {
-                qq: '', wechat: '', email: '', phone: ''
-            }
-
-
+            labelPosition: 'top'
         }
     },
     methods: {
