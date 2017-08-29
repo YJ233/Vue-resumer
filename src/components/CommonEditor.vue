@@ -1,14 +1,11 @@
 <template>
     <div>
-        <h2>工作经历</h2>
+        <h2>{{title}}</h2>
         <el-form :label-position="labelPosition" label-width="80px">
-            <div class="container" v-for="(item,index) in items">
+            <div class="container" v-for="(item,index) in items" :key="index">
                 <h3>经历{{index+1}}</h3>
-                <el-form-item label="工作单位">
+                <el-form-item v-for="key in keys" :label="labels[key]||key" :key="key">
                     <el-input v-model="item.company"></el-input>
-                </el-form-item>
-                <el-form-item label="工作内容">
-                    <el-input v-model="item.content"></el-input>
                 </el-form-item>
                 <hr>
                 <i class="el-icon-circle-cross" @click="removeItem(index)"></i>
@@ -20,15 +17,24 @@
 
 <script>
 export default {
-    props: ['items'],
+    props: ['items','labels','title'],
     data() {
         return {
             labelPosition: 'top'
         }
     },
+    computed: {
+        keys(){
+            return Object.keys(this.items[0])
+        }
+    },
     methods: {
         addItem() {
-            this.items.push({ company: '', content: '' })
+            const empty = {}
+            this.keys.map((key)=>{
+                empty[key]=''
+            })
+            this.items.push(empty)
         },
         removeItem(index) {
             this.items.splice(index, 1)

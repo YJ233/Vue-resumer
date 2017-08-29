@@ -2,7 +2,7 @@
     <div id="editor">
         <nav>
             <ol>
-                <li v-for="i in 5" :class="{active: activeTabIndex===i}" :title="`${title[i-1]}`" @click="activeTabIndex=i">
+                <li v-for="i in 5" :key='i' :class="{active: activeTabIndex===i}" :title="`${title[i-1]}`" @click="activeTabIndex=i">
                     <svg class="icon" aria-hidden="true">
                         <use :xlink:href="`#icon-${icon[i-1]}`"></use>
                     </svg>
@@ -14,16 +14,30 @@
                 <ProfileEditor :profile="profile" />
             </li>
             <li :class="{active: activeTabIndex===2}">
-                <StudyHistoryEditor :items="studyHistory" />
+                <CommonEditor title="学习经历" :items="studyHistory" :labels="{ school: '学校', degree: '学历', duration: '时间' }" />
             </li>
             <li :class="{active: activeTabIndex===3}">
-                <h2>项目经历</h2>
+                <CommonEditor title="项目经历" :items="projects" :labels="{name:'名称',content:'项目描述'}" />
             </li>
             <li :class="{active: activeTabIndex===4}">
-                <WorkHistoryEditor :items="workHistory" />
+                <CommonEditor title="工作经历" :items="workHistory" :labels="{company:'工作单位',content:'工作内容'}" />
             </li>
             <li :class="{active: activeTabIndex===5}">
                 <h2>联系方式</h2>
+                <el-form :label-position="labelPosition" label-width="80px" :model="contacts">
+                    <el-form-item label="QQ">
+                        <el-input v-model="contacts.qq"></el-input>
+                    </el-form-item>
+                    <el-form-item label="微信">
+                        <el-input v-model="contacts.wechat"></el-input>
+                    </el-form-item>
+                    <el-form-item label="E-mail">
+                        <el-input v-model="contacts.email"></el-input>
+                    </el-form-item>
+                    <el-form-item label="手机">
+                        <el-input v-model="contacts.phone"></el-input>
+                    </el-form-item>
+                </el-form>
             </li>
         </ol>
     </div>
@@ -31,12 +45,11 @@
 
 <script>
 import ProfileEditor from './ProfileEditor'
-import StudyHistoryEditor from './StudyHistoryEditor'
-import WorkHistoryEditor from './WorkHistoryEditor'
+import CommonEditor from './CommonEditor'
 
 export default {
     components: {
-        ProfileEditor, StudyHistoryEditor, WorkHistoryEditor
+        ProfileEditor, CommonEditor
     },
     data() {
         return {
@@ -45,16 +58,20 @@ export default {
             title: ["个人信息", "学历", "项目", "工作经历", "联系方式"],
             labelPosition: 'top',
             profile: {
-                name: '',
-                brith: '',
-                city: ''
+                name: '', brith: '', city: ''
             },
             workHistory: [
                 { company: '', content: '' }
             ],
             studyHistory: [
-                { school: '', duration: '', degree: '' }
-            ]
+                { school: '', degree: '', duration: '' }
+            ],
+            projects: [
+                { name: '', content: '' }
+            ],
+            contacts: {
+                qq: '', wechat: '', email: '', phone: ''
+            }
 
 
         }
