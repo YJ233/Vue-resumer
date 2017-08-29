@@ -1,5 +1,8 @@
 <template>
-  <div id="preview">我是preview</div>
+  <div id="preview">
+      <h1>{{profile.name}}</h1>
+      <p></p>
+  </div>
 </template>
 
 <style>
@@ -7,3 +10,8 @@
         min-height: 100px;
     }
 </style>
+<script>
+    export default{
+        props:[]
+    }
+</script>

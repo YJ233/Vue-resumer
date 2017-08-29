@@ -20,14 +20,11 @@ export default {
     props: ['items','labels','title'],
     data() {
         return {
-            labelPosition: 'top'
+            labelPosition: 'top',
+            keys: Object.keys(this.items[0])
         }
     },
-    computed: {
-        keys(){
-            return Object.keys(this.items[0])
-        }
-    },
+    
     methods: {
         addItem() {
             const empty = {}
