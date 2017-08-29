@@ -6,6 +6,7 @@
         <div class="actions">
             <el-button type="primary">登陆</el-button>
             <el-button>注册</el-button>
+            <el-button @click="preview">预览</el-button>
         </div>
     </div>
 </template>
@@ -20,4 +21,12 @@
    
 }
 </style>
-
+<script>
+    export default{
+        methods:{
+            preview(){
+                this.$emit('preview')
+            }
+        }
+    }
+</script>

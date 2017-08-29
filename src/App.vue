@@ -1,10 +1,11 @@
 <template>
-  <div id="app">
-    <Topbar class="topbar" />
+  <div id="app" :class="{previewMode:previewMode}">
+    <Topbar class="topbar" @preview="preview" />
     <main>
-      <Editor class="editor" :resume="resume"/>
-      <Preview class="preview" />
+      <Editor class="editor" :resume="resume" />
+      <Preview class="preview" :resume="resume" />
     </main>
+    <el-button id="exitPreview" @click="exitPreview">退出预览</el-button>
   </div>
 </template>
 
@@ -16,13 +17,22 @@ import Preview from './components/Preview'
 export default {
   data() {
     return {
+      previewMode: false,
       resume: {
-        profile: {name: '', brith: '', city: ''},
+        profile: { name: '', brith: '', city: '' },
         studyHistory: [{ school: '', degree: '', duration: '' }],
         projects: [{ name: '', content: '' }],
         workHistory: [{ company: '', content: '' }],
-        contacts: {qq: '', wechat: '', email: '', phone: ''}
+        contacts: { qq: '', wechat: '', email: '', phone: '' }
       }
+    }
+  },
+  methods: {
+    preview() {
+      this.previewMode = true
+    },
+    exitPreview() {
+      this.previewMode = false
     }
   },
   components: {
@@ -69,5 +79,29 @@ export default {
       overflow: hidden;
     }
   }
+}
+
+.previewMode {
+  #topbar {
+    display: none;
+  }
+  #exitPreview{
+    display: inline-block;
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+  }
+  main {
+    #editor {
+      display: none;
+    }
+    #preview {
+      max-width: 800px;
+      margin: 32px auto;
+    }
+  }
+}
+#exitPreview{
+  display: none;
 }
 </style>
