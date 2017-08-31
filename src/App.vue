@@ -1,10 +1,12 @@
 <template>
   <div id="app" :class="{previewMode:previewMode}">
-    <Topbar class="topbar" @preview="preview" />
+    <Topbar class="topbar" @preview="preview" :dialogVisible.sync="dialogVisible"/>
     <main>
       <Editor class="editor" :resume="resume" />
       <Preview class="preview" :resume="resume" />
     </main>
+    <Login :dialogVisible.sync="dialogVisible" />
+
     <el-button id="exitPreview" @click="exitPreview">退出预览</el-button>
   </div>
 </template>
@@ -13,11 +15,13 @@
 import Topbar from './components/Topbar'
 import Editor from './components/Editor'
 import Preview from './components/Preview'
+import Login from './components/Login'
 
 export default {
   data() {
     return {
       previewMode: false,
+      dialogVisible:false,
       resume: {
         profile: { name: '', brith: '', city: '' },
         studyHistory: [{ school: '', degree: '', duration: '' }],
@@ -36,7 +40,7 @@ export default {
     }
   },
   components: {
-    Topbar, Editor, Preview
+    Topbar, Editor, Preview,Login
   }
 }
 </script>
@@ -51,8 +55,7 @@ export default {
   flex-direction: column;
 
   .topbar {
-    position: relative;
-    // z-index: 1;
+    position: relative; // z-index: 1;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
   }
 

@@ -4,9 +4,7 @@
             VueResumer
         </div>
         <div class="actions">
-            <el-button type="primary" @click="dialogVisible = true">登录/注册</el-button>
-
-            <Login :dialogVisible.sync="dialogVisible"/>
+            <el-button type="primary" @click="open">登录/注册</el-button>
 
             <!-- <el-dropdown>
                 <el-button type="primary">
@@ -26,17 +24,14 @@
 </template>
 
 <script>
-import Login from './Login'
 export default {
-    components:{Login},
-    data(){
-        return{
-            dialogVisible:false
-        }
-    },
+    props:['dialogVisible'],
     methods: {
         preview() {
             this.$emit('preview')
+        },
+        open() {
+            this.$emit('update:dialogVisible', true)
         }
     }
 }
