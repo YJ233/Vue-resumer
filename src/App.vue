@@ -52,7 +52,7 @@ export default {
 
   .topbar {
     position: relative;
-    z-index: 1;
+    // z-index: 1;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
   }
 
@@ -85,7 +85,7 @@ export default {
   #topbar {
     display: none;
   }
-  #exitPreview{
+  #exitPreview {
     display: inline-block;
     position: fixed;
     right: 32px;
@@ -101,7 +101,8 @@ export default {
     }
   }
 }
-#exitPreview{
+
+#exitPreview {
   display: none;
 }
 </style>
