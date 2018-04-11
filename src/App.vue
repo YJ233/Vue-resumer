@@ -12,42 +12,45 @@
 </template>
 
 <script>
-import Topbar from './components/Topbar'
-import Editor from './components/Editor'
-import Preview from './components/Preview'
-import Login from './components/Login'
+import Topbar from "./components/Topbar";
+import Editor from "./components/Editor";
+import Preview from "./components/Preview";
+import Login from "./components/Login";
 
 export default {
   data() {
     return {
       previewMode: false,
-      dialogVisible:false,
+      dialogVisible: false,
       resume: {
-        profile: { name: '', birth: '', city: '' },
-        studyHistory: [{ school: '', degree: '', duration: '' }],
-        projects: [{ name: '', content: '' }],
-        workHistory: [{ company: '', content: '' }],
-        contacts: { qq: '', wechat: '', email: '', phone: '' }
+        profile: { name: "", birth: "", city: "" },
+        studyHistory: [{ school: "", degree: "", duration: "" }],
+        projects: [{ name: "", content: "" }],
+        workHistory: [{ company: "", content: "" }],
+        contacts: { qq: "", wechat: "", email: "", phone: "" }
       }
-    }
+    };
   },
   methods: {
     preview() {
-      this.previewMode = true
+      this.previewMode = true;
     },
     exitPreview() {
-      this.previewMode = false
+      this.previewMode = false;
     }
   },
   components: {
-    Topbar, Editor, Preview,Login
+    Topbar,
+    Editor,
+    Preview,
+    Login
   }
-}
+};
 </script>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
@@ -63,7 +66,7 @@ export default {
     display: flex;
     flex: 1;
     background: #ddd;
-    >.editor {
+    > .editor {
       width: 40em;
       margin: 16px;
       margin-right: 8px;
@@ -72,7 +75,7 @@ export default {
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
       overflow: auto;
     }
-    >.preview {
+    > .preview {
       flex: 1;
       margin: 16px;
       margin-left: 8px;
