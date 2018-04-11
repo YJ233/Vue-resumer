@@ -1,11 +1,11 @@
 <template>
-  <div id="app" :class="{previewMode:previewMode}">
-    <Topbar class="topbar" @preview="preview" :dialogVisible.sync="dialogVisible"/>
+  <div id="app" :class="{previewMode:previewMode}" >
+    <Topbar class="topbar" @preview="preview" @saveResume="saveResume" :dialogVisible.sync="dialogVisible"/>
     <main>
       <Editor class="editor" :resume="resume" />
       <Preview class="preview" :resume="resume" />
     </main>
-    <Login :dialogVisible.sync="dialogVisible" />
+    <Login :dialogVisible.sync="dialogVisible"  @loadResume="loadResume"/>
 
     <el-button id="exitPreview" @click="exitPreview">退出预览</el-button>
   </div>
@@ -31,12 +31,35 @@ export default {
       }
     };
   },
+  created: function initResume() {
+    if (this.AV.User.current()) {
+      this.resume = this.AV.User.current().attributes.resume;
+    } else {
+      return;
+    }
+  },
   methods: {
     preview() {
       this.previewMode = true;
     },
     exitPreview() {
       this.previewMode = false;
+    },
+    saveResume() {
+      let user = this.AV.User.current();
+
+      if (!user) {
+        console.log("您未登录");
+        return;
+      }
+
+      user.set("resume", this.resume);
+      user.save();
+      console.log(user.get("resume"));
+      console.log("保存成功");
+    },
+    loadResume() {
+      this.resume = this.AV.User.current().attributes.resume;
     }
   },
   components: {

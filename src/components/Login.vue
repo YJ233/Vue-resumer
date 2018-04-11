@@ -74,17 +74,25 @@ export default {
           console.log(loginedUser);
           this.close();
         },
-        function(error) {}
+        function(error) {
+          console.log(error);
+        }
       );
     },
     login() {
-      this.AV.User.logIn(this.user.login.username, this.user.login.password).then(
-        loginedUser => {
-          console.log(loginedUser);
-          this.close();
-        },
-        function(error) {}
-      );
+      this.AV.User.logIn(this.user.login.username, this.user.login.password)
+        .then(
+          loginedUser => {
+            console.log(loginedUser);
+            this.close();
+          },
+          function(error) {
+            console.log(error);
+          }
+        )
+        .then(() => {
+          this.$emit("loadResume");
+        });
     }
   }
 };
