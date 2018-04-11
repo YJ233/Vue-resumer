@@ -5,33 +5,33 @@
                 <el-tab-pane label="登录" name="first">
                     <el-form label-position="left" label-width="80px">
                         <el-form-item label="用户名">
-                            <el-input></el-input>
+                            <el-input placeholder="请输入用户名" v-model="user.login.username"></el-input>
                         </el-form-item>
                         <el-form-item label="密码">
-                            <el-input></el-input>
+                            <el-input placeholder="请输入密码" v-model="user.login.password"></el-input>
                         </el-form-item>
                     </el-form>
                 </el-tab-pane>
                 <el-tab-pane label="注册" name="second">
                     <el-form label-position="left" label-width="80px">
                         <el-form-item label="用户名">
-                            <el-input></el-input>
+                            <el-input placeholder="请填写用户名" v-model="user.sign.username"></el-input>
                         </el-form-item>
                         <el-form-item label="邮箱">
-                            <el-input></el-input>
+                            <el-input placeholder="请填写邮箱" v-model="user.sign.email"></el-input>
                         </el-form-item>
                         <el-form-item label="密码">
-                            <el-input></el-input>
+                            <el-input placeholder="请填写密码" v-model="user.sign.password"></el-input>
                         </el-form-item>
                     </el-form>
                 </el-tab-pane>
             </el-tabs>
             <span slot="footer" class="dialog-footer" v-show="activeName==='first'">
-                <el-button type="primary" @click="dialogVisible = false">登录</el-button>
+                <el-button type="primary" @click="login">登录</el-button>
                 <el-button @click="close">取 消</el-button>
             </span>
             <span slot="footer" class="dialog-footer" v-show="activeName==='second'">
-                <el-button type="primary" @click="dialogVisible = false">注册</el-button>
+                <el-button type="primary" @click="sign">注册</el-button>
                 <el-button @click="close">取 消</el-button>
             </span>
         </el-dialog>
@@ -39,32 +39,68 @@
 </template>
 <script>
 export default {
-    props: ['dialogVisible'],
-    data() {
-        return {
-            config: false,
-            activeName: 'first'
+  props: ["dialogVisible"],
+  data() {
+    return {
+      config: false,
+      activeName: "first",
+      user: {
+        sign: {
+          username: "",
+          email: "",
+          password: ""
+        },
+        login: {
+          username: "",
+          password: ""
         }
+      }
+    };
+  },
+  methods: {
+    close() {
+      this.$emit("update:dialogVisible", false);
     },
-    methods: {
-        close() {
-            this.$emit('update:dialogVisible', false)
-        }
+    sign() {
+      let user = new this.AV.User();
+      // 设置用户名
+      user.setUsername(this.user.sign.username);
+      // 设置密码
+      user.setPassword(this.user.sign.password);
+      // 设置邮箱
+      user.setEmail(this.user.sign.email);
+      user.signUp().then(
+        loginedUser => {
+          console.log(loginedUser);
+          this.close();
+        },
+        function(error) {}
+      );
+    },
+    login() {
+      this.AV.User.logIn(this.user.login.username, this.user.login.password).then(
+        loginedUser => {
+          console.log(loginedUser);
+          this.close();
+        },
+        function(error) {}
+      );
     }
+  }
 };
 </script>
 <style lang="scss">
 #login {
-    display: inline-block;
-    .el-tabs{
-        .el-tabs__header{
-            display: flex;
-            justify-content: center;
-        }
-        .el-tabs__content{
-            display: flex;
-            justify-content: center;
-        }
+  display: inline-block;
+  .el-tabs {
+    .el-tabs__header {
+      display: flex;
+      justify-content: center;
     }
+    .el-tabs__content {
+      display: flex;
+      justify-content: center;
+    }
+  }
 }
 </style>
