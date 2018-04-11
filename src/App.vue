@@ -23,7 +23,7 @@ export default {
       previewMode: false,
       dialogVisible:false,
       resume: {
-        profile: { name: '', brith: '', city: '' },
+        profile: { name: '', birth: '', city: '' },
         studyHistory: [{ school: '', degree: '', duration: '' }],
         projects: [{ name: '', content: '' }],
         workHistory: [{ company: '', content: '' }],
