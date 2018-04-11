@@ -34,6 +34,7 @@
                 <el-button type="primary" @click="sign">注册</el-button>
                 <el-button @click="close">取 消</el-button>
             </span>
+            <span class="error" v-show="errorMsg">{{errorMsg}}</span>
         </el-dialog>
     </div>
 </template>
@@ -54,7 +55,8 @@ export default {
           username: "",
           password: ""
         }
-      }
+      },
+      errorMsg: ""
     };
   },
   methods: {
@@ -69,30 +71,41 @@ export default {
       user.setPassword(this.user.sign.password);
       // 设置邮箱
       user.setEmail(this.user.sign.email);
+
+      user.set("resume", {
+        profile: { name: "", birth: "", city: "" },
+        studyHistory: [{ school: "", degree: "", duration: "" }],
+        projects: [{ name: "", content: "" }],
+        workHistory: [{ company: "", content: "" }],
+        contacts: { qq: "", wechat: "", email: "", phone: "" }
+      });
+      
       user.signUp().then(
         loginedUser => {
-          console.log(loginedUser);
+          // console.log(loginedUser);
+          this.errorMsg = "";
           this.close();
         },
-        function(error) {
-          console.log(error);
+        error => {
+          this.errorMsg = error.message;
         }
       );
     },
     login() {
-      this.AV.User.logIn(this.user.login.username, this.user.login.password)
-        .then(
-          loginedUser => {
-            console.log(loginedUser);
-            this.close();
-          },
-          function(error) {
-            console.log(error);
-          }
-        )
-        .then(() => {
+      this.AV.User.logIn(
+        this.user.login.username,
+        this.user.login.password
+      ).then(
+        loginedUser => {
+          // console.log(loginedUser);
+          this.errorMsg = "";
           this.$emit("loadResume");
-        });
+          this.close();
+        },
+        error => {
+          this.errorMsg = error.message;
+        }
+      );
     }
   }
 };
@@ -109,6 +122,12 @@ export default {
       display: flex;
       justify-content: center;
     }
+  }
+  .el-dialog__body{
+    text-align: center;
+  }
+  .error {
+    color: red;
   }
 }
 </style>

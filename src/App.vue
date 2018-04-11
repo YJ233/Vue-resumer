@@ -49,14 +49,14 @@ export default {
       let user = this.AV.User.current();
 
       if (!user) {
-        console.log("您未登录");
+        alert("请先登录");
         return;
       }
 
       user.set("resume", this.resume);
       user.save();
       console.log(user.get("resume"));
-      console.log("保存成功");
+      alert("保存成功");
     },
     loadResume() {
       this.resume = this.AV.User.current().attributes.resume;
