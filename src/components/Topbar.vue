@@ -4,11 +4,11 @@
             VueResumer
         </div>
         <div class="actions">
-            <el-button type="primary" @click="open">登录/注册</el-button>
+            <el-button type="primary" @click="open" v-show="!userLogIn">登录/注册</el-button>
 
-            <el-dropdown @command="callback">
+            <el-dropdown @command="callback" v-show="userLogIn">
                 <el-button type="primary">
-                    UserName
+                    {{userName}}
                     <i class="el-icon-caret-bottom el-icon--right"></i>
                 </el-button>
                 <el-dropdown-menu slot="dropdown">
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  props: ["dialogVisible"],
+  props: ["dialogVisible", "userName", "userLogIn"],
   methods: {
     preview() {
       this.$emit("preview");
@@ -38,10 +38,11 @@ export default {
     },
     logout() {
       this.AV.User.logOut();
+      this.$emit("update:userLogIn", false)
       console.log("logout");
     },
-    callback(aaa) {
-      this[aaa]();
+    callback(command) {
+      this[command]();
     }
   }
 };

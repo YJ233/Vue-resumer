@@ -34,7 +34,7 @@
                 <el-button type="primary" @click="sign">注册</el-button>
                 <el-button @click="close">取 消</el-button>
             </span>
-            <span class="error" v-show="errorMsg">{{errorMsg}}</span>
+              <span class="error" v-show="errorMsg">{{errorMsg}}</span>
         </el-dialog>
     </div>
 </template>
@@ -56,8 +56,19 @@ export default {
           password: ""
         }
       },
-      errorMsg: ""
+      errorMsg: "",
+      timeOut: ""
     };
+  },
+  watch: {
+    errorMsg: function() {
+      clearTimeout(this.timeOut);
+      this.timeOut = setTimeout(() => {
+        if (this.errorMsg) {
+          this.errorMsg = "";
+        }
+      }, 5000);
+    }
   },
   methods: {
     close() {
@@ -79,7 +90,7 @@ export default {
         workHistory: [{ company: "", content: "" }],
         contacts: { qq: "", wechat: "", email: "", phone: "" }
       });
-      
+
       user.signUp().then(
         loginedUser => {
           // console.log(loginedUser);
@@ -99,7 +110,7 @@ export default {
         loginedUser => {
           // console.log(loginedUser);
           this.errorMsg = "";
-          this.$emit("loadResume");
+          this.$emit("init");
           this.close();
         },
         error => {
@@ -123,11 +134,20 @@ export default {
       justify-content: center;
     }
   }
-  .el-dialog__body{
+  .el-dialog__body {
     text-align: center;
   }
   .error {
     color: red;
+  }
+  .fade-enter {
+    opacity: 1;
+  }
+  .fade-enter-active {
+    transition: opacity 5s;
+  }
+  .fade-enter-to {
+    opacity: 0;
   }
 }
 </style>

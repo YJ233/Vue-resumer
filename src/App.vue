@@ -1,11 +1,11 @@
 <template>
   <div id="app" :class="{previewMode:previewMode}" >
-    <Topbar class="topbar" @preview="preview" @saveResume="saveResume" :dialogVisible.sync="dialogVisible"/>
+    <Topbar class="topbar" @preview="preview" @saveResume="saveResume" :dialogVisible.sync="dialogVisible" :userLogIn.sync="userLogIn" :userName="userName"/>
     <main>
       <Editor class="editor" :resume="resume" />
       <Preview class="preview" :resume="resume" />
     </main>
-    <Login :dialogVisible.sync="dialogVisible"  @loadResume="loadResume"/>
+    <Login :dialogVisible.sync="dialogVisible"  @init="init"/>
 
     <el-button id="exitPreview" @click="exitPreview">退出预览</el-button>
   </div>
@@ -22,6 +22,8 @@ export default {
     return {
       previewMode: false,
       dialogVisible: false,
+      userName: "username",
+      userLogIn: false,
       resume: {
         profile: { name: "", birth: "", city: "" },
         studyHistory: [{ school: "", degree: "", duration: "" }],
@@ -31,12 +33,8 @@ export default {
       }
     };
   },
-  created: function initResume() {
-    if (this.AV.User.current()) {
-      this.resume = this.AV.User.current().attributes.resume;
-    } else {
-      return;
-    }
+  created: function() {
+    this.init()
   },
   methods: {
     preview() {
@@ -58,8 +56,14 @@ export default {
       console.log(user.get("resume"));
       alert("保存成功");
     },
-    loadResume() {
-      this.resume = this.AV.User.current().attributes.resume;
+    init() {
+      if (this.AV.User.current()) {
+        this.userName = this.AV.User.current().attributes.username;
+        this.resume = this.AV.User.current().attributes.resume;
+        this.userLogIn=true
+      } else {
+        return;
+      }
     }
   },
   components: {
